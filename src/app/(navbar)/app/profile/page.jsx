@@ -7,7 +7,7 @@ function Page() {
   console.log(user);
 
   return (
-    <div>
+    <div className="pt-2">
       <Profile />
     </div>
   );
