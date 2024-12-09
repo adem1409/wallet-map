@@ -28,7 +28,7 @@ export default function Picture() {
         className="relative block w-fit mt-4 mx-auto after:absolute after:inset-0 hover:after:bg-black/15 after:rounded-full group after:duration-200"
       >
         <div className="relative w-[150px] aspect-square rounded-full overflow-hidden ring-2 ring-green-600 shadow-[3px_4px_10px_rgb(0,255,0,.4)]">
-          <Image src={`/api/image?imageUrl=/uploads/profile-pictures/${user?.picture}`} alt="profile picture" className="object-cover" fill />
+          <Image src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`} alt="profile picture" className="object-cover" fill />
         </div>
         <div className="absolute bottom-0 right-0 flex items-center justify-center size-6 rounded-full bg-green-600 group-hover:scale-125 duration-200">
           <Pen01Icon className="size-5 text-black fill-white" />

@@ -97,7 +97,7 @@ function Navbar() {
               {(isOpen) => (
                 <div className={`relative`}>
                   <div className="relative w-10 aspect-square rounded-full border border-green-600 overflow-hidden">
-                    <Image src={`/api/image?imageUrl=/uploads/profile-pictures/${user?.picture}`} alt="" className="object-cover" fill />
+                    <Image src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`} alt="" className="object-cover" fill />
                   </div>
                   {/* {user?.username} */}
                   <i className="absolute bottom-0 right-0 translate-x-1 translate-y-1 flex items-center justify-center size-4 bg-white rounded-full overflow-hidden">
