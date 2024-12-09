@@ -29,7 +29,11 @@ function AuthProvider({ children, user: initialUser }) {
   //   fetchUser();
   // }, []);
 
-  return <AuthContext.Provider value={{ user, setUser, logout, fetchUser }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, setUser, logout, fetchUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export default AuthProvider;

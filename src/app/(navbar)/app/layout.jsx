@@ -1,5 +1,6 @@
 "use client";
 
+import { CubeLoader } from "@/components/Loaders";
 import Navbar from "@/components/Navbar";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { useRouter } from "next/navigation";
@@ -14,6 +15,14 @@ export default function RootLayout({ children }) {
       router.push("/");
     }
   }, [user]);
+
+  if (!user) {
+    return (
+      <div className="min-w-screen min-h-screen flex items-center justify-center">
+        <CubeLoader />
+      </div>
+    );
+  }
 
   return children;
 }
