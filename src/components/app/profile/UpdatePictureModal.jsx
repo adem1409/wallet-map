@@ -11,7 +11,7 @@ export default function UpdatePictureModal({ show, hide, afterLeave = () => {} }
   const { user } = useAuthContext();
 
   const [error, setError] = useState("");
-  const [image, setImage] = useState(`/api/image?imageUrl=/uploads/profile-pictures/${user?.picture}`);
+  const [image, setImage] = useState(`${user?.picture}`);
   const inputRef = useRef(null);
 
   const onDrop = (acceptedFiles) => {

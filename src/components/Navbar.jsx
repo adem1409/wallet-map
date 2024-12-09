@@ -119,7 +119,7 @@ function Navbar() {
                 <div className={`relative`}>
                   <div className="relative w-10 aspect-square rounded-full border border-green-600 overflow-hidden">
                     <Image
-                      src={`/api/image?imageUrl=/uploads/profile-pictures/${user?.picture}`}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`}
                       alt=""
                       className="object-cover"
                       fill

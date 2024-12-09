@@ -7,10 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
 
-export default function ImageCropper({
-  imageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/image?imageUrl=/uploads/profile-pictures/doctor-avatar.jpg`,
-  hide = () => {},
-}) {
+export default function ImageCropper({ imageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/doctor-avatar.jpg`, hide = () => {} }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
