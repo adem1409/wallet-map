@@ -46,10 +46,10 @@ function UserInfo() {
     console.log(data);
 
     try {
-      const res = await axios.post(`/api/users/edit/${user.id}`, data);
+      const res = await axios.post(`/api/users/edit`, data);
     } catch (err) {
       console.log(err);
-      const msg = err?.response?.data;
+      const msg = err?.response?.data?.message;
       setError("apiError", { type: "manual", message: msg });
     }
   }
