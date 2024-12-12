@@ -9,17 +9,16 @@ import { RingLoader } from "@/components/Loaders";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
-const schema = z
-  .object({
-    username: z.string().min(1, "Username is required").min(6, "Username must be at least 6 characters"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    newPassword: z.string().min(6, "New Password must be at least 6 characters"),
-    confirmNewPassword: z.string().min(6, "Confirm New Password must be at least 6 characters"),
-  })
-  .refine((data) => data.newPassword === data.confirmNewPassword, {
-    message: "Passwords don't match",
-    path: ["confirmNewPassword"],
-  });
+const schema = z.object({
+  username: z.string().min(1, "Username is required").min(6, "Username must be at least 6 characters"),
+  // password: z.string().min(6, "Password must be at least 6 characters"),
+  // newPassword: z.string().min(6, "New Password must be at least 6 characters"),
+  // confirmNewPassword: z.string().min(6, "Confirm New Password must be at least 6 characters"),
+});
+// .refine((data) => data.newPassword === data.confirmNewPassword, {
+//   message: "Passwords don't match",
+//   path: ["confirmNewPassword"],
+// });
 
 function UserInfo() {
   const {
@@ -48,7 +47,7 @@ function UserInfo() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-6 text-sm mt-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="text-sm mt-4">
       <div className="">
         <label className="font-medium text-gray" htmlFor="email">
           Email
@@ -74,7 +73,7 @@ function UserInfo() {
         />
         {errors.username?.message && <p className="mt-1 text-red-500">{errors.username?.message}</p>}
       </div>
-      <div className="mt-2">
+      {/* <div className="mt-2">
         <label className="font-medium text-gray" htmlFor="password">
           Password
         </label>
@@ -136,7 +135,7 @@ function UserInfo() {
           />
         </div>
         {errors.confirmNewPassword?.message && <p className="mt-1 text-red-500">{errors.confirmNewPassword?.message}</p>}
-      </div>
+      </div> */}
       <button
         disabled={isSubmitting}
         type="submit"

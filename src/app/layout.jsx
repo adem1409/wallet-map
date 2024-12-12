@@ -9,7 +9,7 @@ export const metadata = {
   description: "Money Tracking Application",
 };
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
+const poppins = Poppins({ subsets: ["latin-ext"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 
 export default async function RootLayout({ children }) {
   let user = null;

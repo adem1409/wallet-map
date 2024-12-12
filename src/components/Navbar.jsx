@@ -57,7 +57,7 @@ function Navbar() {
             <span className={`text-lg font-semibold mt-1`}>WalletMap</span>
           </Link>
         </div>
-        <ul className="hidden sm:flex items-center gap-4 justify-between  mx-auto text-[10px] lg:text-sm font-medium">
+        {/* <ul className="hidden sm:flex items-center gap-4 justify-between  mx-auto text-[10px] lg:text-sm font-medium">
           {items.map((item, index) => {
             if (item.items) {
               return (
@@ -90,7 +90,7 @@ function Navbar() {
               );
             }
           })}
-        </ul>
+        </ul> */}
         <div className="flex items-center gap-4">
           {user ? (
             <Dropdown items={dropdownItems} position="right" renderItem={(item) => item}>
