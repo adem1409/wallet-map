@@ -2,6 +2,7 @@
 
 import { CubeLoader } from "@/components/Loaders";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -24,5 +25,10 @@ export default function RootLayout({ children }) {
     );
   }
 
-  return children;
+  return (
+    <div>
+      <Sidebar />
+      <div className="md:ml-[230px]">{children}</div>
+    </div>
+  );
 }

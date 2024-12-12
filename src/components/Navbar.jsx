@@ -1,21 +1,16 @@
 "use client";
 
 import Dropdown from "@/components/Dropdown";
-// import { useAppContext } from "@/contexts/AppProvider";
+import { useAppContext } from "@/contexts/AppProvider";
 import { useAuthContext } from "@/contexts/AuthProvider";
-import {
-  ArrowLeftStartOnRectangleIcon,
-  Bars3Icon,
-  LockClosedIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowLeftStartOnRectangleIcon, Bars3Icon, LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function Navbar() {
   const { user, logout } = useAuthContext();
-  //   const { setShowMobileSidebar } = useAppContext();
+  const { setShowMobileSidebar } = useAppContext();
   const pathname = usePathname();
 
   async function handleLogout() {
@@ -71,24 +66,15 @@ function Navbar() {
                     items={item.items}
                     position="left"
                     renderItem={(item) => (
-                      <Link
-                        href={item.path || ""}
-                        className="block py-2 px-3 rounded text-black hover:bg-slate-200 transition duration-300 font-normal"
-                      >
+                      <Link href={item.path || ""} className="block py-2 px-3 rounded text-black hover:bg-slate-200 transition duration-300 font-normal">
                         {item.label}
                       </Link>
                     )}
                   >
                     {(isOpen) => (
-                      <div
-                        className={`flex items-center gap-2 hover:underline underline-offset-4`}
-                      >
+                      <div className={`flex items-center gap-2 hover:underline underline-offset-4`}>
                         {item.label}
-                        <ChevronDownIcon
-                          className={`w-6 h-6 duration-200 ${
-                            isOpen ? "-rotate-180" : ""
-                          }`}
-                        />
+                        <ChevronDownIcon className={`w-6 h-6 duration-200 ${isOpen ? "-rotate-180" : ""}`} />
                       </div>
                     )}
                   </Dropdown>
@@ -97,10 +83,7 @@ function Navbar() {
             } else {
               return (
                 <li key={index} className="">
-                  <Link
-                    href={item.path}
-                    className="block py-2 font-open transition duration-500 hover:underline underline-offset-4"
-                  >
+                  <Link href={item.path} className="block py-2 font-open transition duration-500 hover:underline underline-offset-4">
                     {item.label}
                   </Link>
                 </li>
@@ -110,28 +93,15 @@ function Navbar() {
         </ul>
         <div className="flex items-center gap-4">
           {user ? (
-            <Dropdown
-              items={dropdownItems}
-              position="right"
-              renderItem={(item) => item}
-            >
+            <Dropdown items={dropdownItems} position="right" renderItem={(item) => item}>
               {(isOpen) => (
                 <div className={`relative`}>
                   <div className="relative w-10 aspect-square rounded-full border border-green-600 overflow-hidden">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`}
-                      alt=""
-                      className="object-cover"
-                      fill
-                    />
+                    <Image src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`} alt="" className="object-cover" fill />
                   </div>
                   {/* {user?.username} */}
                   <i className="absolute bottom-0 right-0 translate-x-1 translate-y-1 flex items-center justify-center size-4 bg-white rounded-full overflow-hidden">
-                    <ChevronDownIcon
-                      className={`size-4 duration-200 ${
-                        isOpen ? "-rotate-180" : ""
-                      }`}
-                    />
+                    <ChevronDownIcon className={`size-4 duration-200 ${isOpen ? "-rotate-180" : ""}`} />
                   </i>
                 </div>
               )}
@@ -156,12 +126,7 @@ export default Navbar;
 
 function ChevronDownIcon({ className }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      className={className}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className={className}>
       <path
         fillRule="evenodd"
         d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
