@@ -6,6 +6,8 @@ import axios from "axios";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { RingLoader } from "@/components/Loaders";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/contexts/AuthProvider";
 
 const schema = z
   .object({
@@ -25,6 +27,9 @@ const schema = z
   });
 
 export default function RegisterForm() {
+  const router = useRouter();
+  const { fetchUser } = useAuthContext();
+
   const {
     register,
     handleSubmit,
@@ -38,8 +43,12 @@ export default function RegisterForm() {
   async function onSubmit(data) {
     try {
       const res = await axios.post("/api/users", data);
+
+      fetchUser();
+      router.push("/");
     } catch (err) {
       const msg = err?.response?.data?.message;
+      console.log(err);
       if (msg === "EmailAlreadyExists") {
         setError("apiError", {
           type: "manual",
