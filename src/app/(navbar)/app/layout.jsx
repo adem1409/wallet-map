@@ -2,10 +2,11 @@
 
 import { CubeLoader } from "@/components/Loaders";
 import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import FixedSidebar from "@/components/FixedSidebar";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Sidebar from "@/components/Sidebar";
 
 export default function RootLayout({ children }) {
   const { user } = useAuthContext();
@@ -26,9 +27,11 @@ export default function RootLayout({ children }) {
   }
 
   return (
-    <div>
-      <Sidebar />
-      <div className="md:ml-[230px]">{children}</div>
+    <div className="px-2">
+      <div className="flex max-w-7xl min-h-[calc(100vh-55px)] mx-auto py-[10px]">
+        <Sidebar />
+        <div className="grow">{children}</div>
+      </div>
     </div>
   );
 }

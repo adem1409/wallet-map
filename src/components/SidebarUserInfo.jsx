@@ -10,10 +10,18 @@ export default function SidebarUserInfo() {
     <>
       <div className="relative h-[100px] bg-[url(../images/money.jpg)] bg-cover bg-center isolate after:absolute after:inset-0 after:bg-green/65 after:z-[-1]">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 aspect-square rounded-full overflow-hidden border-[3px] border-white">
-          <Image src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`} alt="" className="object-cover" width={90} height={90} />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}`}
+            alt=""
+            className="object-cover"
+            width={80}
+            height={80}
+            quality={100}
+            sizes="150px"
+          />
         </div>
       </div>
-      <h4 className="mt-8 capitalize font-semibold text-center text-lg">{user?.username}</h4>
+      <h4 className="mt-7 capitalize font-semibold text-center text-lg">{user?.username}</h4>
     </>
   );
 }

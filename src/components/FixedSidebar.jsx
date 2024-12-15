@@ -6,7 +6,7 @@ import { useAppContext } from "@/contexts/AppProvider";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { Cog6ToothIcon, DocumentCheckIcon, HomeIcon, ListBulletIcon, UserIcon, UsersIcon } from "@heroicons/react/24/outline";
 
-export default function Sidebar() {
+export default function FixedSidebar() {
   const { showMobileSidebar, setShowMobileSidebar, isMobile, setIsMobile } = useAppContext();
 
   return (
@@ -14,7 +14,7 @@ export default function Sidebar() {
       {/*  ---------------------------- Desktop Sidebar ---------------------------- */}
       {/*  ---------------------------- Desktop Sidebar ---------------------------- */}
 
-      <div className="rounded-lg w-[230px] bg-white hidden md:block overflow-hidden border border-slate-200">
+      <div className="fixed top-[55px] left-0 bottom-0 w-[230px] bg-white hidden md:block overflow-hidden shadow-[1px_1px_10px_rgb(0,0,0,.2)]">
         <SidebarUserInfo />
         <ul className="text-sm font-medium px-2">
           {items1.map((item, index) => (
