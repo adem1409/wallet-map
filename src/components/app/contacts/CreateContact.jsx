@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { RingLoader } from "@/components/Loaders";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
-function CreateContact() {
+function CreateContact({ fetchContacts }) {
   const {
     register,
     handleSubmit,
@@ -17,6 +17,7 @@ function CreateContact() {
     try {
       const res = await axios.post(`/api/contacts`, data);
       reset();
+      fetchContacts();
     } catch (err) {
       console.log(err);
       const msg = err?.response?.data?.message;

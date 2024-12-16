@@ -4,22 +4,31 @@ import { Poppins } from "next/font/google";
 import { Providers } from "@/contexts/Providers";
 import { cookies } from "next/headers";
 
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+axios.defaults.withCredentials = true;
+
 export const metadata = {
   title: "WalletMap",
   description: "Money Tracking Application",
 };
 
-const poppins = Poppins({ subsets: ["latin-ext"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
+const poppins = Poppins({
+  subsets: ["latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export default async function RootLayout({ children }) {
   let user = null;
   try {
     const cookieStore = cookies();
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/status`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/status`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      }
+    );
 
     user = res.data;
   } catch (err) {

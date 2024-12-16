@@ -1,15 +1,13 @@
-import axiosInstance from "@/config/axios";
+import axios from "axios";
 import ContactDetails from "./ContactDetails";
 
-async function ContactsList() {
-  const { data } = await axiosInstance.get("/api/contacts");
-
+function ContactsList({ contacts }) {
   return (
     <div>
       <h2>Contact List</h2>
       <div>
-        {data.map((contact) => (
-          <ContactDetails contact={contact} />
+        {contacts.map((contact) => (
+          <ContactDetails key={contact?.id} contact={contact} />
         ))}
       </div>
     </div>
