@@ -22,7 +22,7 @@ export default function Sidebar() {
       {/*  ---------------------------- Desktop Sidebar ---------------------------- */}
       {/*  ---------------------------- Desktop Sidebar ---------------------------- */}
 
-      <div className="fixed top-[55px] left-0 bottom-0 w-[230px] hidden md:block overflow-hidden shadow-[1px_1px_10px_rgb(0,0,0,.2)]">
+      <div className="rounded-lg w-[230px] bg-white hidden md:block overflow-hidden border border-slate-200">
         <SidebarUserInfo />
         <ul className="text-sm font-medium px-2">
           {items1.map((item, index) => (
@@ -133,7 +133,7 @@ const items1 = [
   {
     name: "Debt Manager",
     Icon: <DocumentCheckIcon className="size-5" />,
-    path: "/admin/doctor-applications",
+    path: "/app/debt-manager",
   },
   {
     name: "Expenses",

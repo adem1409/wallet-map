@@ -10,6 +10,10 @@ module.exports = {
         gold: { DEFAULT: "#fff7c9" },
         gray: { DEFAULT: "#656D9A" },
       },
+      fontFamily: {
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        rubik: ["var(--font-rubik)", "sans-serif"],
+      },
     },
   },
   plugins: [],
