@@ -20,7 +20,11 @@ const schema = z.object({
   user: z.number().min(1, "User is required"),
 });
 
-export default function AddContractModal({ show, hide, afterLeave = () => {} }) {
+export default function AddContractModal({
+  show,
+  hide,
+  afterLeave = () => {},
+}) {
   const {
     register,
     handleSubmit,
@@ -38,7 +42,8 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
     resolver: zodResolver(schema),
   });
 
-  const { ref: contractNameRef, ...contractNameRest } = register("contractName");
+  const { ref: contractNameRef, ...contractNameRest } =
+    register("contractName");
 
   console.log("-------------------- errors --------------------");
   console.log(errors);
@@ -53,7 +58,9 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
 
     try {
       await axios.post("/api/contracts", data);
-      toast.custom((t) => <CustomToast t={t} message={"Contract added successfully"} />);
+      toast.custom((t) => (
+        <CustomToast t={t} message={"Contract added successfully"} />
+      ));
       hide();
     } catch (err) {
       console.log(err);
@@ -72,7 +79,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
       }}
       initialFocusRef={inputRef}
     >
-      <div className="flex justify-between bg-gray-50 pb-5 px-2">
+      <div className="flex justify-between pb-5 px-2">
         <h3 className="text-lg font-medium text-gray-900">Add Contract</h3>
         <button type="button" onClick={hide}>
           <XMarkIcon className="size-7 text-slate-600 hover:text-black duration-200" />
@@ -81,7 +88,10 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="">
-          <label className="font-medium text-sm text-gray" htmlFor="contract-name">
+          <label
+            className="font-medium text-sm text-gray"
+            htmlFor="contract-name"
+          >
             Contract Name
           </label>
           <input
@@ -94,7 +104,11 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
               inputRef.current = e;
             }}
           />
-          {errors.contractName?.message && <p className="text-red-500 text-sm">{errors.contractName?.message}</p>}
+          {errors.contractName?.message && (
+            <p className="text-red-500 text-sm">
+              {errors.contractName?.message}
+            </p>
+          )}
         </div>
         <div className="mt-2">
           <label className="font-medium text-sm text-gray" htmlFor="currency">
@@ -106,7 +120,9 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
             }}
             value={currency}
           />
-          {errors.currency?.message && <p className="text-red-500 text-sm">{errors.currency?.message}</p>}
+          {errors.currency?.message && (
+            <p className="text-red-500 text-sm">{errors.currency?.message}</p>
+          )}
         </div>
         <div className="mt-2">
           <label className="font-medium text-sm text-gray" htmlFor="currency">
@@ -116,25 +132,51 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
             <label
               htmlFor="is-shared-false"
               className={`flex flex-1 gap-2 items-center px-2 py-1 rounded-full border !ring-slate-400 text-[13px] font-medium cursor-pointer has-[:focus-visible]:ring-1 ${
-                isShared === "false" ? "border-green-600" : "border-slate-300 text-slate-400"
+                isShared === "false"
+                  ? "border-green-600"
+                  : "border-slate-300 text-slate-400"
               }`}
             >
-              <input type="radio" id="is-shared-false" value="false" className="sr-only" {...register("isShared")} />
-              <div className={`w-4 h-4 rounded-full ${isShared === "false" ? "bg-green-600" : "bg-slate-300"}`}></div>
+              <input
+                type="radio"
+                id="is-shared-false"
+                value="false"
+                className="sr-only"
+                {...register("isShared")}
+              />
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  isShared === "false" ? "bg-green-600" : "bg-slate-300"
+                }`}
+              ></div>
               <span className="mx-auto">Local</span>
             </label>
             <label
               htmlFor="is-shared-true"
               className={`flex flex-1 gap-2 items-center px-2 py-1 rounded-full border !ring-slate-400 text-[13px] font-medium cursor-pointer has-[:focus-visible]:ring-1 ${
-                isShared === "true" ? "border-orange-600" : "border-slate-300 text-slate-400"
+                isShared === "true"
+                  ? "border-orange-600"
+                  : "border-slate-300 text-slate-400"
               }`}
             >
-              <input type="radio" id="is-shared-true" value="true" className="sr-only" {...register("isShared")} />
-              <div className={`w-4 h-4 rounded-full ${isShared === "true" ? "bg-orange-600" : "bg-slate-300"}`}></div>
+              <input
+                type="radio"
+                id="is-shared-true"
+                value="true"
+                className="sr-only"
+                {...register("isShared")}
+              />
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  isShared === "true" ? "bg-orange-600" : "bg-slate-300"
+                }`}
+              ></div>
               <span className="mx-auto">Shared</span>
             </label>
           </div>
-          {errors.isShared?.message && <p className="text-red-500 text-sm">{errors.isShared?.message}</p>}
+          {errors.isShared?.message && (
+            <p className="text-red-500 text-sm">{errors.isShared?.message}</p>
+          )}
         </div>
         {isShared === "true" ? (
           <div className="mt-2">
@@ -146,7 +188,9 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
                 setValue("user", option.value);
               }}
             />
-            {errors.user?.message && <p className="text-red-500 text-sm">{errors.user?.message}</p>}
+            {errors.user?.message && (
+              <p className="text-red-500 text-sm">{errors.user?.message}</p>
+            )}
           </div>
         ) : (
           <div className="mt-2">
@@ -159,7 +203,9 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
               }}
               value={currency}
             />
-            {errors.contact?.message && <p className="text-red-500 text-sm">{errors.contact?.message}</p>}
+            {errors.contact?.message && (
+              <p className="text-red-500 text-sm">{errors.contact?.message}</p>
+            )}
           </div>
         )}
         <div className="flex items-center gap-2 justify-end mt-4">
