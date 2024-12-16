@@ -10,7 +10,10 @@ import { useAuthContext } from "@/contexts/AuthProvider";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
 const schema = z.object({
-  username: z.string().min(1, "Username is required").min(6, "Username must be at least 6 characters"),
+  username: z
+    .string()
+    .min(1, "Username is required")
+    .min(6, "Username must be at least 6 characters"),
   // password: z.string().min(6, "Password must be at least 6 characters"),
   // newPassword: z.string().min(6, "New Password must be at least 6 characters"),
   // confirmNewPassword: z.string().min(6, "Confirm New Password must be at least 6 characters"),
@@ -59,7 +62,9 @@ function UserInfo() {
           disabled
           className="block w-full mt-2 px-3 py-2 rounded-lg border border-slate-200 outline-none focus:ring-1 ring-slate-400 duration-200 disabled:bg-slate-100 disabled:text-slate-600"
         />
-        {errors.email?.message && <p className="mt-1 text-red-500">{errors.email?.message}</p>}
+        {errors.email?.message && (
+          <p className="mt-1 text-red-500">{errors.email?.message}</p>
+        )}
       </div>
       <div className="mt-2">
         <label className="font-medium text-gray" htmlFor="username">
@@ -71,7 +76,9 @@ function UserInfo() {
           defaultValue={user.username}
           className="block w-full mt-2 px-3 py-2 rounded-lg border border-slate-200 outline-none focus:ring-1 ring-slate-400 duration-200 disabled:opacity-50"
         />
-        {errors.username?.message && <p className="mt-1 text-red-500">{errors.username?.message}</p>}
+        {errors.username?.message && (
+          <p className="mt-1 text-red-500">{errors.username?.message}</p>
+        )}
       </div>
       {/* <div className="mt-2">
         <label className="font-medium text-gray" htmlFor="password">
@@ -150,7 +157,11 @@ function UserInfo() {
           </>
         )}
       </button>
-      {errors.apiError?.message && <p className="mt-1 text-red-500 text-center">{errors.apiError?.message}</p>}
+      {errors.apiError?.message && (
+        <p className="mt-1 text-red-500 text-center">
+          {errors.apiError?.message}
+        </p>
+      )}
     </form>
   );
 }

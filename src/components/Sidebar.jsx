@@ -4,10 +4,18 @@ import SidebarItem from "@/components/SidebarItem";
 import SidebarUserInfo from "@/components/SidebarUserInfo";
 import { useAppContext } from "@/contexts/AppProvider";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import { Cog6ToothIcon, DocumentCheckIcon, HomeIcon, ListBulletIcon, UserIcon, UsersIcon } from "@heroicons/react/24/outline";
+import {
+  Cog6ToothIcon,
+  DocumentCheckIcon,
+  HomeIcon,
+  ListBulletIcon,
+  UserIcon,
+  UsersIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Sidebar() {
-  const { showMobileSidebar, setShowMobileSidebar, isMobile, setIsMobile } = useAppContext();
+  const { showMobileSidebar, setShowMobileSidebar, isMobile, setIsMobile } =
+    useAppContext();
 
   return (
     <>
@@ -42,7 +50,12 @@ export default function Sidebar() {
         }}
         className="relative z-50"
       >
-        {isMobile && <DialogBackdrop transition className="fixed inset-0 bg-black/30 cursor-pointer duration-200 data-[closed]:opacity-0" />}
+        {isMobile && (
+          <DialogBackdrop
+            transition
+            className="fixed inset-0 bg-black/30 cursor-pointer duration-200 data-[closed]:opacity-0"
+          />
+        )}
 
         {/* Full-screen container to center the panel */}
         {/* The actual dialog panel  */}
@@ -77,7 +90,15 @@ export default function Sidebar() {
 }
 
 const Doctor02Icon = (props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"currentColor"} fill={"none"} {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    color={"currentColor"}
+    fill={"none"}
+    {...props}
+  >
     <path
       d="M4 22.0002V21.0002C4 19.131 4 18.1964 4.40192 17.5002C4.66523 17.0442 5.04394 16.6655 5.5 16.4022C6.19615 16.0002 7.13077 16.0002 9 16.0002L12 20.0002L15 16.0002C16.8692 16.0002 17.8038 16.0002 18.5 16.4022C18.9561 16.6655 19.3348 17.0442 19.5981 17.5002C20 18.1964 20 19.131 20 21.0002V22.0002"
       stroke="currentColor"
@@ -92,7 +113,13 @@ const Doctor02Icon = (props) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M11.9998 4.00024V5.99976M12.9995 5L11 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M11.9998 4.00024V5.99976M12.9995 5L11 5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -112,6 +139,11 @@ const items1 = [
     name: "Expenses",
     Icon: <ListBulletIcon className="size-5" />,
     path: "/admin/specialities",
+  },
+  {
+    name: "Contacts",
+    Icon: <ListBulletIcon className="size-5" />,
+    path: "/app/contacts",
   },
   {
     name: "Profile",
