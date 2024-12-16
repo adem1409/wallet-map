@@ -146,7 +146,7 @@ function UserInfo() {
       <button
         disabled={isSubmitting}
         type="submit"
-        className="relative flex justify-center items-center gap-3 w-full h-9 mt-6 px-4 py-2 rounded-lg bg-green hover:bg-green-dark text-white shadow-md disabled:opacity-75 disabled:cursor-not-allowed duration-200"
+        className="relative flex justify-center items-center gap-3 w-full h-9 mt-6 px-4 py-2 rounded-lg bg-green-800 hover:bg-green-dark text-white shadow-md disabled:opacity-75 disabled:cursor-not-allowed duration-200"
       >
         {isSubmitting ? (
           <RingLoader className=" !size-4 !border-[2px]" />

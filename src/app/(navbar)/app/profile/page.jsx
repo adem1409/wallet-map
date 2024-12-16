@@ -7,7 +7,7 @@ function Page() {
   console.log(user);
 
   return (
-    <div className="pt-2 px-4 pb-20 max-w-4xl">
+    <div className="pt-2 pl-4 pb-20">
       <Profile />
     </div>
   );

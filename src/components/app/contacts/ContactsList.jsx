@@ -1,15 +1,37 @@
-import axios from "axios";
 import ContactDetails from "./ContactDetails";
 
-function ContactsList({ contacts }) {
+function ContactsList({ contacts, fetchContacts }) {
   return (
-    <div>
-      <h2>Contact List</h2>
-      <div>
-        {contacts.map((contact) => (
-          <ContactDetails key={contact?.id} contact={contact} />
-        ))}
-      </div>
+    <div className="max-w-3xl mt-4 bg-white border border-slate-200 rounded-lg py-6 px-3">
+      <h2 className="text-lg font-semibold mb-5">Contact List</h2>
+      <table className="w-full text-left border-collapse">
+        <thead className="">
+          <tr className="border-b [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm">
+            <th className="pb-2">Name</th>
+            <th className="pb-2">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts?.length ? (
+            contacts.map((contact) => (
+              <ContactDetails
+                key={contact?.id}
+                contact={contact}
+                fetchContacts={fetchContacts}
+              />
+            ))
+          ) : (
+            <tr>
+              <td
+                className="py-10 text-center text-slate-600 font-semibold "
+                colSpan="4"
+              >
+                You have no contacts yet
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

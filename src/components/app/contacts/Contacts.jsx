@@ -18,10 +18,11 @@ function Contacts({ contacts: initialContacts }) {
   }
 
   return (
-    <div className="max-w-lg mx-auto">
+    <>
+      <h3 className="text-2xl font-semibold text-slate-700">Contacts</h3>
       <CreateContact fetchContacts={fetchContacts} />
       <ContactsList contacts={contacts} fetchContacts={fetchContacts} />
-    </div>
+    </>
   );
 }
 

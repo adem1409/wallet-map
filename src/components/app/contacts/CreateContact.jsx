@@ -25,7 +25,8 @@ function CreateContact({ fetchContacts }) {
     }
   }
   return (
-    <div>
+    <div className="max-w-3xl mt-4 bg-white border border-slate-200 rounded-lg py-6 px-3">
+      <h2 className="text-lg font-semibold">Add Contact</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="text-sm mt-4">
         <div className="">
           <label className="font-medium text-gray" htmlFor="name">
