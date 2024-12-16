@@ -50,10 +50,17 @@ export default function ContractsList({ contracts }) {
                     {doc.name}
                   </td>
                   <td className="py-3 text-gray-600">
-                    {doc.date} <br />
-                    <span className="text-sm">{doc.time}</span>
+                    {doc.currency} <br />
                   </td>
-                  <td></td>
+                  <td>
+                    {new Date(doc.creationDate).toLocaleDateString("en-UK", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      // hour: "2-digit",
+                      // minute: "2-digit",
+                    })}
+                  </td>
                   <td className="py-3 flex gap-4 justify-end">
                     <button className="text-gray-500 hover:text-blue-500 transition">👁️ {/* View Icon */}</button>
                     <button className="text-gray-500 hover:text-red-500 transition">🗑️ {/* Delete Icon */}</button>

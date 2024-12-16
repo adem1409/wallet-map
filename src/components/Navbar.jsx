@@ -3,12 +3,7 @@
 import Dropdown from "@/components/Dropdown";
 import { useAppContext } from "@/contexts/AppProvider";
 import { useAuthContext } from "@/contexts/AuthProvider";
-import {
-  ArrowLeftStartOnRectangleIcon,
-  Bars3Icon,
-  LockClosedIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowLeftStartOnRectangleIcon, Bars3Icon, LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -44,7 +39,7 @@ function Navbar() {
   ];
 
   return (
-    <header className="shrink-0 fixed w-full top-0 left-0 z-[20] flex items-center h-[55px] px-4 bg-white shadow-md">
+    <header className="shrink-0 fixed w-full top-0 left-0 z-[20] flex items-center h-[55px] px-4 border-b border-slate-200 bg-white ">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         <div className="flex items-center gap-2">
           {pathname !== "/" && (
@@ -110,31 +105,15 @@ function Navbar() {
         </ul> */}
         <div className="flex items-center gap-4">
           {user ? (
-            <Dropdown
-              items={dropdownItems}
-              position="right"
-              renderItem={(item) => item}
-            >
+            <Dropdown items={dropdownItems} position="right" renderItem={(item) => item}>
               {(isOpen) => (
                 <div className={`relative`}>
                   <div className="relative w-10 aspect-square rounded-full border border-green-600 overflow-hidden">
-                    <Image
-                      src={
-                        `${process.env.NEXT_PUBLIC_API_URL}${user?.picture}` ||
-                        ""
-                      }
-                      alt=""
-                      className="object-cover"
-                      fill
-                    />
+                    <Image src={`${process.env.NEXT_PUBLIC_API_URL}${user?.picture}` || ""} alt="" className="object-cover" fill />
                   </div>
                   {/* {user?.username} */}
                   <i className="absolute bottom-0 right-0 translate-x-1 translate-y-1 flex items-center justify-center size-4 bg-white rounded-full overflow-hidden">
-                    <ChevronDownIcon
-                      className={`size-4 duration-200 ${
-                        isOpen ? "-rotate-180" : ""
-                      }`}
-                    />
+                    <ChevronDownIcon className={`size-4 duration-200 ${isOpen ? "-rotate-180" : ""}`} />
                   </i>
                 </div>
               )}
@@ -159,12 +138,7 @@ export default Navbar;
 
 function ChevronDownIcon({ className }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      className={className}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className={className}>
       <path
         fillRule="evenodd"
         d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"

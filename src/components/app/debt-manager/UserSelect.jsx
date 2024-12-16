@@ -1,9 +1,8 @@
 "use client";
 
-import { CURRENCIES, CURRENCIES_OBJ } from "@/lib/currencies";
-import Image from "next/image";
-import { useState } from "react";
-import Select, { components } from "react-select";
+import axios from "axios";
+import { components } from "react-select";
+import AsyncSelect from "react-select/async";
 import reactStringReplace from "react-string-replace";
 
 const CustomOption = (props) => {
@@ -14,39 +13,26 @@ const CustomOption = (props) => {
     </span>
   ));
 
-  return (
-    <components.Option {...props}>
-      <div className="flex items-center gap-2">
-        <Image src={`/flags/${props.data.value}.png`} alt={`${props.data.value}.png`} width={24} height={24} />
-        <p>{formattedLabel}</p>
-      </div>
-    </components.Option>
-  );
+  return <components.Option {...props}>{formattedLabel}</components.Option>;
 };
-const options = CURRENCIES.map((currency) => ({
-  value: currency.code,
-  label: currency.code + " - " + currency.name,
-}));
 
-function CurrencySelect({ onChange = () => {}, value = "TND" }) {
-  const [inputValue, setInputValue] = useState("");
+function UserSelect({ onChange = () => {}, inputRef }) {
+  async function fetchUsers(search) {
+    const res = await axios.get("/api/users", {
+      params: {
+        search: search,
+      },
+    });
 
-  const selectedOption = CURRENCIES_OBJ[value]
-    ? {
-        value: CURRENCIES_OBJ[value].code,
-        label: CURRENCIES_OBJ[value].code + " - " + CURRENCIES_OBJ[value].name,
-      }
-    : null;
-
-  const customFilter = (inputValue) => {
-    return options
-      .filter((option) => option.label.toLowerCase().includes(inputValue.toLowerCase()) || option.value.toLowerCase().includes(inputValue.toLowerCase()))
-      .slice(0, 10); // Limit to top 10 matches
-  };
+    return res.data.map((obj) => ({
+      value: obj.id,
+      label: obj.email,
+    }));
+  }
 
   return (
     <div className="[&_*]:no-outline">
-      <Select
+      <AsyncSelect
         styles={{
           container: (provided) => ({
             ...provided,
@@ -114,18 +100,17 @@ function CurrencySelect({ onChange = () => {}, value = "TND" }) {
           }),
         }}
         components={{ Option: CustomOption }}
-        // options={customFilter(inputValue)}
-        options={options}
-        className=""
+        defaultOptions
+        loadOptions={fetchUsers}
+        ref={inputRef}
+        // onChange={(newPeople) => setPeople(newPeople.map((curr) => curr.value))}
         onChange={onChange}
-        onInputChange={(value) => {
-          setInputValue(value);
+        filterOption={(option, inputValue) => {
+          return option.label.toLowerCase().includes(inputValue.toLowerCase()) || option.value.toString().toLowerCase().includes(inputValue.toLowerCase());
         }}
-        value={selectedOption}
-        // filterOption={() => true}
       />
     </div>
   );
 }
 
-export default CurrencySelect;
+export default UserSelect;
