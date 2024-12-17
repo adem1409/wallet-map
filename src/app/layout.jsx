@@ -13,18 +13,29 @@ export const metadata = {
   description: "Money Tracking Application",
 };
 
-const poppins = Poppins({ subsets: ["latin-ext"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: "--font-poppins" });
-const rubik = Rubik({ subsets: ["latin-ext"], weight: ["300", "400", "500", "600", "700", "800", "900"], variable: "--font-rubik" });
+const poppins = Poppins({
+  subsets: ["latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+});
+const rubik = Rubik({
+  subsets: ["latin-ext"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-rubik",
+});
 
 export default async function RootLayout({ children }) {
   let user = null;
   try {
     const cookieStore = cookies();
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/status`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/status`,
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      }
+    );
 
     user = res.data;
   } catch (err) {
@@ -34,7 +45,9 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`bg-slate-100 font-rubik focus:[&_*:is(input,button,a,textarea)]:custom-outline ${poppins.variable} ${rubik.variable}`}>
+      <body
+        className={`bg-slate-100 font-rubik focus:[&_*:is(input,button,a,textarea)]:custom-outline ${poppins.variable} ${rubik.variable}`}
+      >
         <Toaster position="bottom-right" reverseOrder={false} />
         <Providers user={user}>{children}</Providers>
       </body>
