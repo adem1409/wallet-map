@@ -8,7 +8,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default function ContractsList({ contracts, fetchContracts = () => {} }) {
+export default function ContractsList({
+  contracts,
+  fetchContracts = () => {},
+}) {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -57,31 +60,55 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
               contracts.map((contract, index) => (
                 <tr
                   key={contract.id}
-                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl- [&>:last-child]:pr-3 text-sm cursor-pointer has-[.first-link:focus]:custom-outline ring-inset"
+                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl- [&>:last-child]:pr-3 text-sm  has-[.first-link:focus]:custom-outline ring-inset"
                 >
                   <td className="h-px">
                     <div
                       title={contract.shared ? "Shared" : "Local"}
-                      className={`h-full w-1.5 rounded-r-sm ${contract.shared ? "bg-blue-500" : "bg-slate-400"}`}
+                      className={`h-full w-1.5 rounded-r-sm ${
+                        contract.shared ? "bg-blue-500" : "bg-slate-400"
+                      }`}
                     ></div>
                   </td>
                   <td className="">
-                    <Link className="first-link block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
-                      <div className="flex items-center gap-2">{contract.name}</div>
+                    <Link
+                      className="first-link block py-1.5 no-outline"
+                      href={`/app/debt-manager/${contract.id}`}
+                      passHref
+                    >
+                      <div className="flex items-center gap-2">
+                        {contract.name}
+                      </div>
                     </Link>
                   </td>
                   <td className="">
                     {contract.sideBShared ? (
-                      <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                      <Link
+                        tabIndex={-1}
+                        className="block py-1.5 no-outline"
+                        href={`/app/debt-manager/${contract.id}`}
+                        passHref
+                      >
                         <div className="flex items-center gap-2">
                           <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
-                            <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`} fill className="" sizes="50px" alt="" />
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`}
+                              fill
+                              className=""
+                              sizes="50px"
+                              alt=""
+                            />
                           </div>
                           <p>{contract.sideBShared?.email}</p>
                         </div>
                       </Link>
                     ) : contract.sideBLocal ? (
-                      <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                      <Link
+                        tabIndex={-1}
+                        className="block py-1.5 no-outline"
+                        href={`/app/debt-manager/${contract.id}`}
+                        passHref
+                      >
                         <div className="flex items-center gap-2">
                           <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
                             <Image
@@ -100,22 +127,40 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                     )}
                   </td>
                   <td className="text-gray-600">
-                    <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                    <Link
+                      tabIndex={-1}
+                      className="block py-1.5 no-outline"
+                      href={`/app/debt-manager/${contract.id}`}
+                      passHref
+                    >
                       <div className="flex items-center gap-2">
-                        <Image src={`/flags/${contract.currency}.png`} alt={`${contract.currency}.png`} width={20} height={20} />
+                        <Image
+                          src={`/flags/${contract.currency}.png`}
+                          alt={`${contract.currency}.png`}
+                          width={20}
+                          height={20}
+                        />
                         <p>{contract.currency}</p>
                       </div>
                     </Link>
                   </td>
                   <td>
-                    <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
-                      {new Date(contract.creationDate).toLocaleDateString("en-UK", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                        // hour: "2-digit",
-                        // minute: "2-digit",
-                      })}
+                    <Link
+                      tabIndex={-1}
+                      className="block py-1.5 no-outline"
+                      href={`/app/debt-manager/${contract.id}`}
+                      passHref
+                    >
+                      {new Date(contract.creationDate).toLocaleDateString(
+                        "en-UK",
+                        {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                          // hour: "2-digit",
+                          // minute: "2-digit",
+                        }
+                      )}
                     </Link>
                   </td>
                   <td className="py-1.5">
@@ -127,7 +172,10 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
               ))
             ) : (
               <tr>
-                <td className="py-8 text-center text-slate-600 font-semibold " colSpan="4">
+                <td
+                  className="py-8 text-center text-slate-600 font-semibold "
+                  colSpan="4"
+                >
                   You have no contracts yet
                 </td>
               </tr>

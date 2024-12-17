@@ -21,7 +21,7 @@ function ContactsList({ contacts, fetchContacts }) {
               />
             ))
           ) : (
-            <tr>
+            <tr className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl- [&>:last-child]:pr-3 text-sm  has-[.first-link:focus]:custom-outline ring-inset">
               <td
                 className="py-10 text-center text-slate-600 font-semibold "
                 colSpan="4"

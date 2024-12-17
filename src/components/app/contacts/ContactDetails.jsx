@@ -12,7 +12,7 @@ function ContactDetails({ contact, fetchContacts }) {
   }
 
   return (
-    <tr className="border-b hover:bg-gray-50 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm">
+    <tr className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl- [&>:last-child]:pr-3 text-sm cursor-pointer has-[.first-link:focus]:custom-outline ring-inset">
       <td className="py-3 text-gray-600">
         {contact.name} <br />
       </td>

@@ -32,7 +32,7 @@ export default async function page({ params }) {
   }
 
   return (
-    <div className="pt-2 pl-4 pb-20">
+    <div className="">
       <Contract contract={contract} transactions={transactions} />
     </div>
   );
