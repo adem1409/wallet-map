@@ -1,4 +1,4 @@
-import DebtManager from "@/components/app/debt-manager/DebtManager";
+import Contract from "@/components/app/debt-manager/[id]/Contract";
 import axios from "axios";
 
 export default async function page() {
@@ -14,7 +14,7 @@ export default async function page() {
 
   return (
     <div className="pt-2 pl-4 pb-20">
-      <DebtManager contracts={contracts} />
+      <Contract contracts={contracts} />
     </div>
   );
 }

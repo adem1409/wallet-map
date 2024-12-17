@@ -2,10 +2,17 @@
 
 import AddContractModal from "@/components/app/debt-manager/AddContractModal";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default function ContractsList({ contracts }) {
+export default function ContractsList({ contracts, fetchContracts = () => {} }) {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+
+  console.log("-------------------- contracts --------------------");
+  console.log(contracts);
 
   return (
     <>
@@ -14,6 +21,7 @@ export default function ContractsList({ contracts }) {
           setShowModal(false);
         }}
         show={showModal}
+        fetchContracts={fetchContracts}
       />
       <div className="mt-4 bg-white border border-slate-200 rounded-lg py-6">
         {/* Header */}
@@ -35,6 +43,7 @@ export default function ContractsList({ contracts }) {
         <table className="w-full text-left border-collapse">
           <thead className="">
             <tr className="border-b [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm">
+              <th className="pb-2">Label</th>
               <th className="pb-2">Contact</th>
               <th className="pb-2">Currency</th>
               <th className="pb-2">Last Updated</th>
@@ -43,22 +52,40 @@ export default function ContractsList({ contracts }) {
           </thead>
           <tbody>
             {contracts?.length ? (
-              contracts.map((doc, index) => (
+              contracts.map((contract, index) => (
                 <tr
-                  key={index}
-                  className="border-b hover:bg-gray-50 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm"
+                  onClick={() => {
+                    router.push(`/app/debt-manager/${contract.id}`);
+                  }}
+                  key={contract.id}
+                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm cursor-pointer"
                 >
-                  <td className="py-3 flex items-center gap-2">
-                    <div className="text-blue-500">
-                      📄 {/* Replace with a real icon in a production app */}
+                  <td className="py-1.5">
+                    <div className="flex items-center gap-2">
+                      <div className="text-blue-500">📄 {/* Replace with a real icon in a production app */}</div>
+                      {contract.name}
                     </div>
-                    {doc.name}
                   </td>
-                  <td className="py-3 text-gray-600">
-                    {doc.currency} <br />
+                  <td className="py-1.5">
+                    {contract.sideBShared ? (
+                      <div className="flex items-center gap-2">
+                        <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
+                          <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`} fill className="" sizes="50px" alt="" />
+                        </div>
+                        <p>{contract.sideBShared?.email}</p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td className="py-1.5 text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Image src={`/flags/${contract.currency}.png`} alt={`${contract.currency}.png`} width={20} height={20} />
+                      <p>{contract.currency}</p>
+                    </div>
                   </td>
                   <td>
-                    {new Date(doc.creationDate).toLocaleDateString("en-UK", {
+                    {new Date(contract.creationDate).toLocaleDateString("en-UK", {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
@@ -66,22 +93,16 @@ export default function ContractsList({ contracts }) {
                       // minute: "2-digit",
                     })}
                   </td>
-                  <td className="py-3 flex gap-4 justify-end">
-                    <button className="text-gray-500 hover:text-blue-500 transition">
-                      👁️ {/* View Icon */}
-                    </button>
-                    <button className="text-gray-500 hover:text-red-500 transition">
-                      🗑️ {/* Delete Icon */}
+                  <td className="py-1.5">
+                    <button className="ml-auto size-6 flex items-center justify-center rounded hover:bg-slate-200 transition">
+                      <TrashIcon className="size-5 text-red-500" />
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td
-                  className="py-10 text-center text-slate-600 font-semibold "
-                  colSpan="4"
-                >
+                <td className="py-3 text-center text-slate-600 font-semibold " colSpan="4">
                   You have no contracts yet
                 </td>
               </tr>

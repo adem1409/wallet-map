@@ -20,7 +20,7 @@ const schema = z.object({
   user: z.number().min(1, "User is required"),
 });
 
-export default function AddContractModal({ show, hide, afterLeave = () => {} }) {
+export default function AddContractModal({ show, hide, afterLeave = () => {}, fetchContracts = () => {} }) {
   const {
     register,
     handleSubmit,
@@ -40,10 +40,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
 
   const { ref: contractNameRef, ...contractNameRest } = register("contractName");
 
-  console.log("-------------------- errors --------------------");
-  console.log(errors);
-
-  const { isShared, currency, contractName } = watch();
+  const { isShared, currency } = watch();
 
   const inputRef = useRef(null);
 
@@ -54,6 +51,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {} }) 
     try {
       await axios.post("/api/contracts", data);
       toast.custom((t) => <CustomToast t={t} message={"Contract added successfully"} />);
+      fetchContracts();
       hide();
     } catch (err) {
       console.log(err);
