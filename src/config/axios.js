@@ -1,7 +1,7 @@
-import axios from "axios";
+import _axios from "axios";
 
-const axiosInstance = axios.create({
+const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // Use environment variable
 });
 
-export default axiosInstance;
+export default axios;

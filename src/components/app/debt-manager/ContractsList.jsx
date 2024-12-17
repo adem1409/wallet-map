@@ -4,6 +4,7 @@ import AddContractModal from "@/components/app/debt-manager/AddContractModal";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -54,44 +55,49 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
             {contracts?.length ? (
               contracts.map((contract, index) => (
                 <tr
-                  onClick={() => {
-                    router.push(`/app/debt-manager/${contract.id}`);
-                  }}
                   key={contract.id}
-                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm cursor-pointer"
+                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm cursor-pointer has-[.first-link:focus]:custom-outline ring-inset"
                 >
-                  <td className="py-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className="text-blue-500">📄 {/* Replace with a real icon in a production app */}</div>
-                      {contract.name}
-                    </div>
-                  </td>
-                  <td className="py-1.5">
-                    {contract.sideBShared ? (
+                  <td className="">
+                    <Link className="first-link block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
                       <div className="flex items-center gap-2">
-                        <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
-                          <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`} fill className="" sizes="50px" alt="" />
-                        </div>
-                        <p>{contract.sideBShared?.email}</p>
+                        <div className="text-blue-500">📄 {/* Replace with a real icon in a production app */}</div>
+                        {contract.name}
                       </div>
+                    </Link>
+                  </td>
+                  <td className="">
+                    {contract.sideBShared ? (
+                      <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                        <div className="flex items-center gap-2">
+                          <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
+                            <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`} fill className="" sizes="50px" alt="" />
+                          </div>
+                          <p>{contract.sideBShared?.email}</p>
+                        </div>
+                      </Link>
                     ) : (
                       ""
                     )}
                   </td>
-                  <td className="py-1.5 text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <Image src={`/flags/${contract.currency}.png`} alt={`${contract.currency}.png`} width={20} height={20} />
-                      <p>{contract.currency}</p>
-                    </div>
+                  <td className="text-gray-600">
+                    <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                      <div className="flex items-center gap-2">
+                        <Image src={`/flags/${contract.currency}.png`} alt={`${contract.currency}.png`} width={20} height={20} />
+                        <p>{contract.currency}</p>
+                      </div>
+                    </Link>
                   </td>
                   <td>
-                    {new Date(contract.creationDate).toLocaleDateString("en-UK", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                      // hour: "2-digit",
-                      // minute: "2-digit",
-                    })}
+                    <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                      {new Date(contract.creationDate).toLocaleDateString("en-UK", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                        // hour: "2-digit",
+                        // minute: "2-digit",
+                      })}
+                    </Link>
                   </td>
                   <td className="py-1.5">
                     <button className="ml-auto size-6 flex items-center justify-center rounded hover:bg-slate-200 transition">

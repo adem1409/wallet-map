@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`bg-slate-100 font-rubik [&_*:is(input,button,a,textarea)]:custom-outline ${poppins.variable} ${rubik.variable}`}>
+      <body className={`bg-slate-100 font-rubik focus:[&_*:is(input,button,a,textarea)]:custom-outline ${poppins.variable} ${rubik.variable}`}>
         <Toaster position="bottom-right" reverseOrder={false} />
         <Providers user={user}>{children}</Providers>
       </body>
