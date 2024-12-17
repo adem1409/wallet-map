@@ -44,6 +44,7 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
         <table className="w-full text-left border-collapse">
           <thead className="">
             <tr className="border-b [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm">
+              <th className="w-0"></th>
               <th className="pb-2">Label</th>
               <th className="pb-2">Contact</th>
               <th className="pb-2">Currency</th>
@@ -56,14 +57,17 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
               contracts.map((contract, index) => (
                 <tr
                   key={contract.id}
-                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm cursor-pointer has-[.first-link:focus]:custom-outline ring-inset"
+                  className="border-b hover:bg-slate-100 transition duration-200 [&>:first-child]:pl- [&>:last-child]:pr-3 text-sm cursor-pointer has-[.first-link:focus]:custom-outline ring-inset"
                 >
+                  <td className="h-px">
+                    <div
+                      title={contract.shared ? "Shared" : "Local"}
+                      className={`h-full w-1.5 rounded-r-sm ${contract.shared ? "bg-blue-500" : "bg-slate-400"}`}
+                    ></div>
+                  </td>
                   <td className="">
                     <Link className="first-link block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
-                      <div className="flex items-center gap-2">
-                        <div className="text-blue-500">📄 {/* Replace with a real icon in a production app */}</div>
-                        {contract.name}
-                      </div>
+                      <div className="flex items-center gap-2">{contract.name}</div>
                     </Link>
                   </td>
                   <td className="">
@@ -74,6 +78,21 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                             <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture}`} fill className="" sizes="50px" alt="" />
                           </div>
                           <p>{contract.sideBShared?.email}</p>
+                        </div>
+                      </Link>
+                    ) : contract.sideBLocal ? (
+                      <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                        <div className="flex items-center gap-2">
+                          <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/profile-pictures/avatar_placeholder.png`}
+                              fill
+                              className=""
+                              sizes="50px"
+                              alt=""
+                            />
+                          </div>
+                          <p>{contract.sideBLocal?.name}</p>
                         </div>
                       </Link>
                     ) : (
@@ -108,7 +127,7 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
               ))
             ) : (
               <tr>
-                <td className="py-3 text-center text-slate-600 font-semibold " colSpan="4">
+                <td className="py-8 text-center text-slate-600 font-semibold " colSpan="4">
                   You have no contracts yet
                 </td>
               </tr>

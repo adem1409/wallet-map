@@ -1,8 +1,9 @@
 "use client";
 
 import axios from "axios";
-import AsyncSelect from "react-select/async";
+import { useState } from "react";
 import { components } from "react-select";
+import AsyncSelect from "react-select/async";
 import reactStringReplace from "react-string-replace";
 
 const CustomOption = (props) => {
@@ -16,23 +17,34 @@ const CustomOption = (props) => {
   return <components.Option {...props}>{formattedLabel}</components.Option>;
 };
 
-export default function ContactSelect({ onChange = () => {}, inputRef }) {
+function UserSelect({ onChange = () => {}, inputRef }) {
+  const [cache, setCache] = useState({}); // State to store cached results
+
   async function fetchUsers(search) {
-    const res = await axios.get("/api/patients/get-by-doctor", {
+    // Check cache first
+    if (cache[search]) {
+      return cache[search];
+    }
+
+    // Fetch data from API if not cached
+    const res = await axios.get("/api/contacts", {
       params: {
         search: search,
       },
     });
 
-    const data = res.data;
-    data.forEach((obj) => {
-      obj.name = obj.firstName + " " + obj.lastName;
-    });
-    return data.map((obj) => ({
-      value: obj._id,
-      //   label: search.length ? reactStringReplace(obj.name, search, (match, i) => <b key={i}>{match}</b>) : obj.name,
+    const options = res.data.map((obj) => ({
+      value: obj.id,
       label: obj.name,
     }));
+
+    // Update cache
+    setCache((prevCache) => ({
+      ...prevCache,
+      [search]: options,
+    }));
+
+    return options;
   }
 
   return (
@@ -103,15 +115,24 @@ export default function ContactSelect({ onChange = () => {}, inputRef }) {
               backgroundColor: "#CBD5E1",
             },
           }),
+          menu: (provided) => ({
+            ...provided,
+            paddingInline: "2px",
+            borderRadius: "8px",
+          }),
         }}
         components={{ Option: CustomOption }}
         defaultOptions
         loadOptions={fetchUsers}
-        className="mt-2 shadow"
         ref={inputRef}
         // onChange={(newPeople) => setPeople(newPeople.map((curr) => curr.value))}
         onChange={onChange}
+        filterOption={(option, inputValue) => {
+          return option.label.toLowerCase().includes(inputValue.toLowerCase()) || option.value.toString().toLowerCase().includes(inputValue.toLowerCase());
+        }}
       />
     </div>
   );
 }
+
+export default UserSelect;
