@@ -13,12 +13,21 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-const schema = z.object({
-  contractName: z.string().min(1, "Contract name is required"),
-  currency: z.string().min(1, "Currency is required"),
-  isShared: z.string().min(1, "IsShared is required"), //
-  user: z.number().min(1, "User is required"),
-});
+const schema = z
+  .object({
+    contractName: z.string().min(1, "Contract name is required"),
+    currency: z.string().min(1, "Currency is required"),
+    isShared: z.enum(["true", "false"], "IsShared is required"),
+    user: z.number().optional(),
+    contact: z.number().optional(),
+  })
+  .refine(
+    (data) => (data.isShared === "true" ? data.user > 0 : data.contact > 0),
+    (data) => ({
+      message: data.isShared === "true" ? "User is required" : "Contact is required",
+      path: data.isShared === "true" ? ["user"] : ["contact"], // Highlights the correct field
+    })
+  );
 
 export default function AddContractModal({ show, hide, afterLeave = () => {}, fetchContracts = () => {} }) {
   const {
@@ -30,10 +39,11 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      contractName: "",
+      contractName: `Contract ${new Date().toLocaleDateString()}`,
       isShared: "false",
       currency: "TND",
       user: 0,
+      contact: 0,
     },
     resolver: zodResolver(schema),
   });
@@ -151,11 +161,10 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
             <label className="font-medium text-sm text-gray" htmlFor="currency">
               Contact
             </label>
-            <CurrencySelect
+            <ContactSelect
               onChange={(option) => {
-                setValue("currency", option.value);
+                setValue("contact", option.value);
               }}
-              value={currency}
             />
             {errors.contact?.message && <p className="text-red-500 text-sm">{errors.contact?.message}</p>}
           </div>
