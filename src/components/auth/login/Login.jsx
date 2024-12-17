@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <main className="w-full max-w-[400px] mx-1 my-2 rounded-lg shadow-md overflow-hidden">
+      <main className="w-full max-w-[400px] mx-1 my-2 rounded-lg bg-white shadow-md overflow-hidden">
         <div className="py-10 px-4 bg-slate-950 text-center">
           <div className="w-fit mx-auto">
             <Image src="/icon.png" width={60} height={60} alt="" sizes="100px" className="bg-contain" quality={100} />
