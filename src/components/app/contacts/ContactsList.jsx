@@ -6,7 +6,7 @@ function ContactsList({ contacts, fetchContacts }) {
       <h2 className="text-lg font-semibold mb-5">Contact List</h2>
       <table className="w-full text-left border-collapse">
         <thead className="">
-          <tr className="border-b [&>:first-child]:pl-3 [&>:last-child]:pr-3 text-sm">
+          <tr className="border-b [&>:first-child]:pl-1 [&>:last-child]:pr-1 text-sm">
             <th className="pb-2">Name</th>
             <th className="pb-2">Delete</th>
           </tr>
