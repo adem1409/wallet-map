@@ -61,6 +61,8 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
   console.log(selectedContact);
 
   useEffect(() => {
+    console.log("-------------------- selectedUser --------------------");
+    console.log(selectedUser, contactName, selectedContact, currency);
     if (selectedContact) {
       setValue("contractName", selectedContact.label + " - " + currency + " - " + new Date().toLocaleDateString("en-UK", { month: "2-digit", day: "2-digit" }));
     } else if (selectedUser) {
@@ -76,6 +78,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
   useEffect(() => {
     if (newContact === "true") {
       setValue("contact", 0);
+      setSelectedContact(null);
     } else {
       setValue("contactName", "");
     }
