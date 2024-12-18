@@ -45,7 +45,7 @@ function CurrencySelect({ onChange = () => {}, value = "TND" }) {
   };
 
   return (
-    <div className="[&_*]:no-outline">
+    <div className="[&_*:is(input,button,a,textarea)]:no-outline">
       <Select
         styles={{
           container: (provided) => ({

@@ -8,7 +8,7 @@ import Modal from "@/components/Modal";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -17,16 +17,16 @@ const schema = z
   .object({
     contractName: z.string().min(1, "Contract name is required"),
     currency: z.string().min(1, "Currency is required"),
-    isShared: z.enum(["true", "false"], "IsShared is required"),
+    isShared: z.enum(["true", "false"], "IsShared is required").transform((val) => val === "true"),
     user: z.number().optional(),
     contact: z.number().optional(),
     contactName: z.string().optional(),
   })
   .refine(
-    (data) => (data.isShared === "true" ? data.user > 0 : data.contact > 0 || data.contactName),
+    (data) => (data.isShared ? data.user > 0 : data.contact > 0 || data.contactName),
     (data) => ({
-      message: data.isShared === "true" ? "User is required" : "Contact is required",
-      path: data.isShared === "true" ? ["user"] : ["contact"], // Highlights the correct field
+      message: data.isShared ? "User is required" : "Contact is required",
+      path: data.isShared ? ["user"] : ["contact"], // Highlights the correct field
     })
   );
 
@@ -40,7 +40,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      contractName: `Contract ${new Date().toLocaleDateString()}`,
+      contractName: "",
       isShared: "false",
       currency: "TND",
       user: 0,
@@ -51,10 +51,24 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
     resolver: zodResolver(schema),
   });
 
-  const { ref: contractNameRef, ...contractNameRest } = register("contractName");
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const formValues = watch();
-  const { isShared, currency, newContact } = formValues;
+  const { isShared, currency, newContact, contact, contactName } = formValues;
+
+  console.log("-------------------- selectedContact --------------------");
+  console.log(selectedContact);
+
+  useEffect(() => {
+    if (selectedContact) {
+      setValue("contractName", selectedContact.label + " - " + currency + " - " + new Date().toLocaleDateString("en-UK", { month: "2-digit", day: "2-digit" }));
+    } else if (selectedUser) {
+      setValue("contractName", selectedUser.username + " - " + currency + " - " + new Date().toLocaleDateString("en-UK", { month: "2-digit", day: "2-digit" }));
+    } else if (contactName) {
+      setValue("contractName", contactName + " - " + currency + " - " + new Date().toLocaleDateString("en-UK", { month: "2-digit", day: "2-digit" }));
+    }
+  }, [selectedContact, contactName, selectedUser, currency]);
 
   console.log("-------------------- formValues --------------------");
   console.log(formValues);
@@ -104,34 +118,6 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="">
-          <label className="font-medium text-sm text-gray" htmlFor="contract-name">
-            Contract Name
-          </label>
-          <input
-            {...contractNameRest}
-            id="contractName"
-            placeholder="John Doe - USD"
-            className="block w-full px-2 py-1 rounded-lg border border-slate-200 !ring-slate-400 text-sm duration-200"
-            ref={(e) => {
-              contractNameRef(e);
-              inputRef.current = e;
-            }}
-          />
-          {errors.contractName?.message && <p className="text-red-500 text-sm">{errors.contractName?.message}</p>}
-        </div>
-        <div className="mt-2">
-          <label className="font-medium text-sm text-gray" htmlFor="currency">
-            Currency
-          </label>
-          <CurrencySelect
-            onChange={(option) => {
-              setValue("currency", option.value);
-            }}
-            value={currency}
-          />
-          {errors.currency?.message && <p className="text-red-500 text-sm">{errors.currency?.message}</p>}
-        </div>
-        <div className="mt-2">
           <label className="font-medium text-sm text-gray" htmlFor="currency">
             Type
           </label>
@@ -167,6 +153,7 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
             <UserSelect
               onChange={(option) => {
                 setValue("user", option.value);
+                setSelectedUser(option);
               }}
             />
             {errors.user?.message && <p className="text-red-500 text-sm">{errors.user?.message}</p>}
@@ -205,13 +192,40 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
                 <ContactSelect
                   onChange={(option) => {
                     setValue("contact", option.value);
+                    setSelectedContact(option);
                   }}
+                  inputRef={inputRef}
                 />
               </div>
             )}
             {errors.contact?.message && <p className="text-red-500 text-sm">{errors.contact?.message}</p>}
           </div>
         )}
+        <div className="mt-2">
+          <label className="font-medium text-sm text-gray" htmlFor="currency">
+            Currency
+          </label>
+          <CurrencySelect
+            onChange={(option) => {
+              setValue("currency", option.value);
+            }}
+            value={currency}
+          />
+          {errors.currency?.message && <p className="text-red-500 text-sm">{errors.currency?.message}</p>}
+        </div>
+
+        <div className="mt-2">
+          <label className="font-medium text-sm text-gray" htmlFor="contract-name">
+            Contract Name
+          </label>
+          <input
+            id="contractName"
+            placeholder="John Doe - USD"
+            className="block w-full px-2 py-1 rounded-lg border border-slate-200 !ring-slate-400 text-sm duration-200"
+            {...register("contractName")}
+          />
+          {errors.contractName?.message && <p className="text-red-500 text-sm">{errors.contractName?.message}</p>}
+        </div>
         <div className="flex items-center gap-2 justify-end mt-4">
           {isSubmitting && (
             <div className="flex">

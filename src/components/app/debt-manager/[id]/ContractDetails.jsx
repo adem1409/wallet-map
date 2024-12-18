@@ -1,6 +1,5 @@
 function ContractDetails({ contract }) {
-  const { id, netBalance, currency, status, sideBShared, sideBLocal, sideA } =
-    contract;
+  const { id, netBalance, currency, status, sideBShared, sideBLocal, sideA } = contract;
   console.log(sideBShared);
   console.log(sideBLocal);
   console.log(sideA);

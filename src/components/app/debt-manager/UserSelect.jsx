@@ -34,6 +34,7 @@ function UserSelect({ onChange = () => {}, inputRef }) {
     const options = res.data.map((obj) => ({
       value: obj.id,
       label: obj.username + " - " + obj.email,
+      username: obj.username,
     }));
 
     // Update cache
