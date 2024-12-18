@@ -1,6 +1,7 @@
 "use client";
 
 import AddContractModal from "@/components/app/debt-manager/AddContractModal";
+import DeleteContractModal from "@/components/app/debt-manager/DeleteContractModal";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -10,6 +11,8 @@ import React, { useState } from "react";
 
 export default function ContractsList({ contracts, fetchContracts = () => {} }) {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [contractToDelete, setContractToDelete] = useState(null);
   const router = useRouter();
 
   console.log("-------------------- contracts --------------------");
@@ -22,6 +25,17 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
           setShowModal(false);
         }}
         show={showModal}
+        fetchContracts={fetchContracts}
+      />
+      <DeleteContractModal
+        hide={() => {
+          setShowDeleteModal(false);
+        }}
+        afterLeave={() => {
+          setContractToDelete(null);
+        }}
+        show={showDeleteModal}
+        toDelete={contractToDelete}
         fetchContracts={fetchContracts}
       />
       <div className="mt-4 bg-white border border-slate-200 rounded-lg py-6">
@@ -120,7 +134,13 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                     </Link>
                   </td>
                   <td className="py-1.5">
-                    <button className="ml-auto size-6 flex items-center justify-center rounded hover:bg-slate-200 transition">
+                    <button
+                      onClick={() => {
+                        setContractToDelete(contract);
+                        setShowDeleteModal(true);
+                      }}
+                      className="ml-auto size-6 flex items-center justify-center rounded hover:bg-slate-200 transition"
+                    >
                       <TrashIcon className="size-5 text-red-500" />
                     </button>
                   </td>
