@@ -57,9 +57,6 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
   const formValues = watch();
   const { isShared, currency, newContact, contact, contactName } = formValues;
 
-  console.log("-------------------- selectedContact --------------------");
-  console.log(selectedContact);
-
   useEffect(() => {
     console.log("-------------------- selectedUser --------------------");
     console.log(selectedUser, contactName, selectedContact, currency);
@@ -71,9 +68,6 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
       setValue("contractName", contactName + " - " + currency + " - " + new Date().toLocaleDateString("en-UK", { month: "2-digit", day: "2-digit" }));
     }
   }, [selectedContact, contactName, selectedUser, currency]);
-
-  console.log("-------------------- formValues --------------------");
-  console.log(formValues);
 
   useEffect(() => {
     if (newContact === "true") {
