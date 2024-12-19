@@ -25,7 +25,7 @@ function ContactDetails({ contact, fetchContacts }) {
         <br />
       </td>
       <td className="relative">
-        <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contact.image}`} alt="Picture of the author" fill />
+        <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contact.image || ""}`} alt="Picture of the author" fill />
       </td>
     </tr>
   );

@@ -5,14 +5,16 @@ import { useAuthContext } from "@/contexts/AuthProvider";
 import { ArrowsRightLeftIcon, ChevronRightIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
   amount: z.string().regex(/^\d+(\.\d{0,2})?$/, "Amount must be a valid number with up to 2 decimal places."),
+  label: z.string().min(1, "Label is required"),
 });
 
-export default function AddTransaction({ transactions, contract, otherContact }) {
+export default function AddTransaction({ transactions, contract, userSide, otherUserSide }) {
   const {
     register,
     handleSubmit,
@@ -22,13 +24,13 @@ export default function AddTransaction({ transactions, contract, otherContact })
     defaultValues: {
       userIsLender: true,
       amount: "",
+      label: "Transaction #1000",
     },
     resolver: zodResolver(schema),
   });
   const { user } = useAuthContext();
 
-  console.log("-------------------- otherUser --------------------");
-  console.log(otherContact);
+  const otherUser = useMemo(() => contract[otherUserSide], [otherUserSide]);
 
   const formValues = watch();
   const { userIsLender } = formValues;
@@ -85,19 +87,19 @@ export default function AddTransaction({ transactions, contract, otherContact })
             </div>
             <div className="flex flex-col items-center">
               <div className="relative w-[52px] aspect-square rounded-full border-2 border-slate-400 overflow-hidden">
-                <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBShared?.picture || ""}`} fill className="" sizes="100px" alt="" />
+                <Image src={`${process.env.NEXT_PUBLIC_API_URL}${otherUser?.picture || ""}`} fill className="" sizes="100px" alt="" />
               </div>
-              <p className="font-medium text-sm text-slate-700">{contract.sideBShared?.username}</p>
+              <p className="font-medium text-sm text-slate-700">{otherUser?.username}</p>
             </div>
           </div>
         </label>
         <div className="">
-          <label className="font-medium text-sm text-gray" htmlFor="contract-name">
+          <label className="font-medium text-sm text-gray" htmlFor="amount">
             Amount
           </label>
           <div className="flex rounded-lg border border-slate-200 overflow-hidden focus-within:custom-outline !ring-slate-400">
             <input
-              id="contractName"
+              id="amount"
               type="text"
               inputMode="decimal"
               placeholder="1,234.56"
@@ -111,10 +113,35 @@ export default function AddTransaction({ transactions, contract, otherContact })
           </div>
           {errors.amount?.message && <p className="text-red-500 text-sm">{errors.amount?.message}</p>}
         </div>
+        <div className="mt-2">
+          <label className="font-medium text-sm text-gray" htmlFor="label">
+            Label
+          </label>
+          <input
+            id="label"
+            placeholder="Taxi fare (London Trip)"
+            className="block w-full px-2 py-1 rounded-lg border border-slate-200 !ring-slate-400 text-sm duration-200"
+            {...register("label")}
+          />
+          {errors.label?.message && <p className="text-red-500 text-sm">{errors.label?.message}</p>}
+        </div>
+        <div className="mt-2">
+          <label className="font-medium text-sm text-gray" htmlFor="label">
+            Date
+          </label>
+          <input
+            id="label"
+            type="date"
+            placeholder="Taxi fare (London Trip)"
+            className="block w-full px-2 py-1 rounded-lg border border-slate-200 !ring-slate-400 text-sm duration-200"
+            {...register("label")}
+          />
+          {errors.label?.message && <p className="text-red-500 text-sm">{errors.label?.message}</p>}
+        </div>
         <button
           disabled={isSubmitting}
           type="submit"
-          className="relative flex justify-center items-center gap-3 w-full h-9 mt-2 px-4 py-2 rounded-lg bg-green hover:bg-green-dark text-white shadow-md disabled:opacity-75 disabled:cursor-not-allowed duration-200"
+          className="relative flex justify-center items-center gap-2 w-full h-[30px] mt-2 px-4 py-1 rounded-lg bg-green hover:bg-green-dark text-white text-sm shadow-md disabled:opacity-75 disabled:cursor-not-allowed duration-200"
         >
           {isSubmitting ? (
             <RingLoader className=" !size-4 !border-[2px]" />
