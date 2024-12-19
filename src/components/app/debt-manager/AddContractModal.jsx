@@ -78,6 +78,16 @@ export default function AddContractModal({ show, hide, afterLeave = () => {}, fe
     }
   }, [newContact]);
 
+  useEffect(() => {
+    if (isShared === "true") {
+      setValue("contact", 0);
+      setSelectedContact(null);
+    } else {
+      setValue("user", 0);
+      setSelectedUser(null);
+    }
+  }, [isShared]);
+
   const inputRef = useRef(null);
 
   async function onSubmit(data) {
