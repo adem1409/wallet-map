@@ -23,7 +23,7 @@ const schema = z.object({
   sideAIsLender: z.boolean(),
 });
 
-export default function AddTransaction({ transactions, contract, userSide, otherUserSide }) {
+export default function AddTransaction({ transactions, contract, userSide, otherUserSide, fetchTransactions = () => {} }) {
   const {
     register,
     handleSubmit,
@@ -67,6 +67,7 @@ export default function AddTransaction({ transactions, contract, userSide, other
       await axios.post("/api/transactions", data);
       toast.custom((t) => <CustomToast t={t} message={"Transaction added successfully"} />);
       reset();
+      fetchTransactions();
       // fetchContracts();
     } catch (err) {
       console.log(err);
@@ -76,7 +77,7 @@ export default function AddTransaction({ transactions, contract, userSide, other
   }
 
   return (
-    <div className="mt-4 bg-white border border-slate-200 rounded-lg py-2 px-3">
+    <div className="self-start sticky top-20 mt-4 bg-white border border-slate-200 rounded-lg py-2 px-3">
       <h2 className="text-lg font-semibold">New Transaction</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-fit">
         <label className="block w-fit mt-2 p-2 rounded-lg hover:bg-slate-200/75 has-[:focus-visible]:bg-slate-200/75 duration-200 cursor-pointer group">
