@@ -1,6 +1,7 @@
 "use client";
 
 import { RingLoader } from "@/components/Loaders";
+import { DateTimePicker } from "@/components/app/debt-manager/[id]/DateTimePicker";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { ArrowsRightLeftIcon, ChevronRightIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +13,7 @@ import { z } from "zod";
 const schema = z.object({
   amount: z.string().regex(/^\d+(\.\d{0,2})?$/, "Amount must be a valid number with up to 2 decimal places."),
   label: z.string().min(1, "Label is required"),
+  date: z.date(),
 });
 
 export default function AddTransaction({ transactions, contract, userSide, otherUserSide }) {
@@ -19,12 +21,14 @@ export default function AddTransaction({ transactions, contract, userSide, other
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       userIsLender: true,
       amount: "",
       label: "Transaction #1000",
+      date: new Date(),
     },
     resolver: zodResolver(schema),
   });
@@ -33,7 +37,7 @@ export default function AddTransaction({ transactions, contract, userSide, other
   const otherUser = useMemo(() => contract[otherUserSide], [otherUserSide]);
 
   const formValues = watch();
-  const { userIsLender } = formValues;
+  const { userIsLender, date } = formValues;
 
   console.log("-------------------- formValues --------------------");
   console.log(formValues);
@@ -129,14 +133,22 @@ export default function AddTransaction({ transactions, contract, userSide, other
           <label className="font-medium text-sm text-gray" htmlFor="label">
             Date
           </label>
-          <input
-            id="label"
+          {/* <input
+            id="date"
             type="date"
             placeholder="Taxi fare (London Trip)"
             className="block w-full px-2 py-1 rounded-lg border border-slate-200 !ring-slate-400 text-sm duration-200"
-            {...register("label")}
-          />
-          {errors.label?.message && <p className="text-red-500 text-sm">{errors.label?.message}</p>}
+            {...register("date")}
+          /> */}
+          <div>
+            <DateTimePicker
+              date={date}
+              setDate={(value) => {
+                setValue("date", value);
+              }}
+            />
+          </div>
+          {errors.date?.message && <p className="text-red-500 text-sm">{errors.date?.message}</p>}
         </div>
         <button
           disabled={isSubmitting}

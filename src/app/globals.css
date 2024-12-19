@@ -85,3 +85,9 @@
     transform: scale(0.8);
   }
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
