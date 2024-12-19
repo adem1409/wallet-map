@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios from "@/config/axios";
 import { useState } from "react";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";

@@ -1,19 +1,18 @@
 "use client";
 
+import { RingLoader } from "@/components/Loaders";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { ArrowsRightLeftIcon, ChevronRightIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import FlipCard from "@/components/app/debt-manager/[id]/Flip";
-import { RingLoader } from "@/components/Loaders";
 
 const schema = z.object({
   amount: z.string().regex(/^\d+(\.\d{0,2})?$/, "Amount must be a valid number with up to 2 decimal places."),
 });
 
-export default function AddTransaction({ transactions, contract }) {
+export default function AddTransaction({ transactions, contract, otherContact }) {
   const {
     register,
     handleSubmit,
@@ -27,6 +26,9 @@ export default function AddTransaction({ transactions, contract }) {
     resolver: zodResolver(schema),
   });
   const { user } = useAuthContext();
+
+  console.log("-------------------- otherUser --------------------");
+  console.log(otherContact);
 
   const formValues = watch();
   const { userIsLender } = formValues;
@@ -70,12 +72,12 @@ export default function AddTransaction({ transactions, contract }) {
 
               {/*  ---------------------------- FLIP CARD ---------------------------- */}
               {/*  ---------------------------- FLIP CARD ---------------------------- */}
-              <div class={`[perspective:1000px] w-40 h-6 mx-auto ${userIsLender ? "text-green-700" : "text-red-500"}`}>
-                <div class={`h-full w-full preserve-3d ${userIsLender ? "" : "rotate-y-180"} relative duration-500 font-medium`}>
-                  <div class="backface-hidden absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center">
+              <div className={`[perspective:1000px] w-40 h-6 mx-auto ${userIsLender ? "text-green-700" : "text-red-500"}`}>
+                <div className={`h-full w-full preserve-3d ${userIsLender ? "" : "rotate-y-180"} relative duration-500 font-medium`}>
+                  <div className="backface-hidden absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center">
                     <h2>Lend</h2>
                   </div>
-                  <div class="backface-hidden rotate-y-180 absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center">
+                  <div className="backface-hidden rotate-y-180 absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center">
                     <h2>Borrowed From</h2>
                   </div>
                 </div>

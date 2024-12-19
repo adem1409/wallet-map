@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ContactsList from "./ContactsList";
 import CreateContact from "./CreateContact";
-import axios from "axios";
+import axios from "@/config/axios";
 
 function Contacts({ contacts: initialContacts }) {
   const [contacts, setContacts] = useState(initialContacts);

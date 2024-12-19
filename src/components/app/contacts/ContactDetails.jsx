@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios from "@/config/axios";
 
 function ContactDetails({ contact, fetchContacts }) {
   async function handleDeleteContact() {

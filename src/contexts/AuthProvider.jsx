@@ -1,11 +1,8 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/config/axios";
 
 const AuthContext = React.createContext();
-
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
-axios.defaults.withCredentials = true;
 
 function AuthProvider({ children, user: initialUser }) {
   const [user, setUser] = useState(initialUser);
@@ -29,11 +26,7 @@ function AuthProvider({ children, user: initialUser }) {
   //   fetchUser();
   // }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, setUser, logout, fetchUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, setUser, logout, fetchUser }}>{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;

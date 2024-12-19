@@ -1,6 +1,6 @@
 "use client";
 import ContractsList from "@/components/app/debt-manager/ContractsList";
-import axios from "axios";
+import axios from "@/config/axios";
 import React, { useState } from "react";
 
 export default function Contracts({ contracts: initialContracts }) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "@/config/axios";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import reactStringReplace from "react-string-replace";

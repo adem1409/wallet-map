@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios from "@/config/axios";
 import { useForm } from "react-hook-form";
 import { RingLoader } from "@/components/Loaders";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
@@ -53,11 +53,7 @@ function CreateContact({ fetchContacts }) {
             </>
           )}
         </button>
-        {errors.apiError?.message && (
-          <p className="mt-1 text-red-500 text-center">
-            {errors.apiError?.message}
-          </p>
-        )}
+        {errors.apiError?.message && <p className="mt-1 text-red-500 text-center">{errors.apiError?.message}</p>}
       </form>
     </div>
   );

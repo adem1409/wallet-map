@@ -1,5 +1,5 @@
 import Contract from "@/components/app/debt-manager/[id]/Contract";
-import axios from "axios";
+import axios from "@/config/axios";
 import { cookies } from "next/headers";
 
 export default async function page({ params }) {

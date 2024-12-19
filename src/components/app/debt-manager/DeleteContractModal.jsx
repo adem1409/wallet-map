@@ -3,7 +3,7 @@
 import CustomToast from "@/components/CustomToast";
 import Modal from "@/components/Modal";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import axios from "axios";
+import axios from "@/config/axios";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 

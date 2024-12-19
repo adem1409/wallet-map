@@ -7,7 +7,7 @@ import CustomToast from "@/components/CustomToast";
 import Modal from "@/components/Modal";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios from "@/config/axios";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";

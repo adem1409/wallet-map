@@ -1,5 +1,5 @@
 import Contacts from "@/components/app/contacts/Contacts";
-import axios from "axios";
+import axios from "@/config/axios";
 import { cookies } from "next/headers";
 
 export default async function page() {

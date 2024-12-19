@@ -1,5 +1,5 @@
 import Contracts from "@/components/app/debt-manager/Contracts";
-import axios from "axios";
+import axios from "@/config/axios";
 
 export default async function DebtManager({ contracts }) {
   return (
