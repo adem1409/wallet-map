@@ -14,7 +14,11 @@ export default async function page({ params }) {
         Cookie: cookieStore.toString(),
       },
     });
-    contract = res.data;
+    contract = res.data?.contract;
+    contract.nbTransactions = res.data?.nbTransactions;
+
+    console.log("-------------------- contract --------------------");
+    console.log(contract);
   } catch (error) {
     console.log("Error fetching contract data:", error.message);
   }

@@ -119,7 +119,7 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                   <td className="text-gray-600">
                     <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
                       <p className={`font-semibold ${contract.netBalance > 0 ? "text-green-600" : contract.netBalance < 0 ? "text-red-500" : "text-gray-600"}`}>
-                        {contract.netBalance} {contract.currency}
+                        {Number(contract.netBalance.toFixed(2))} {contract.currency}
                       </p>
                     </Link>
                   </td>

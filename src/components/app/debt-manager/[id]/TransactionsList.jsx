@@ -78,7 +78,7 @@ export default function TransactionsList({ contract, transactions, fetchContract
                   </td>
                   <td className="">
                     <p className={`font-semibold ${transaction.amount >= 0 ? "text-green-600" : "text-red-500"}`}>
-                      {Math.abs(transaction.amount)} {contract.currency}
+                      {transaction.amount} {contract.currency}
                     </p>
                   </td>
                   <td>

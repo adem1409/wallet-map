@@ -23,7 +23,7 @@ const schema = z.object({
   sideAIsLender: z.boolean(),
 });
 
-export default function AddTransaction({ transactions, contract, userSide, otherUserSide, fetchTransactions = () => {} }) {
+export default function AddTransaction({ transactions, contract, userSide, otherUserSide, fetchTransactions = () => {}, fetchContract = () => {} }) {
   const {
     register,
     handleSubmit,
@@ -68,7 +68,7 @@ export default function AddTransaction({ transactions, contract, userSide, other
       toast.custom((t) => <CustomToast t={t} message={"Transaction added successfully"} />);
       reset();
       fetchTransactions();
-      // fetchContracts();
+      fetchContract();
     } catch (err) {
       console.log(err);
       toast.error("An error occurred while submitting the form");
