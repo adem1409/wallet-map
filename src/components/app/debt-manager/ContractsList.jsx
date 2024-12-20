@@ -98,13 +98,7 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                       <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
                         <div className="flex items-center gap-2">
                           <div className="relative shrink-0 size-[25px] rounded-full border border-slate-400 overflow-hidden">
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/profile-pictures/avatar_placeholder.png`}
-                              fill
-                              className=""
-                              sizes="50px"
-                              alt=""
-                            />
+                            <Image src={`${process.env.NEXT_PUBLIC_API_URL}${contract.sideBLocal?.picture}`} fill className="" sizes="50px" alt="" />
                           </div>
                           <p>{contract.sideBLocal?.name}</p>
                         </div>
