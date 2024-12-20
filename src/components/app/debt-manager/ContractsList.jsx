@@ -62,6 +62,7 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
               <th className="pb-2">Label</th>
               <th className="pb-2">Contact</th>
               <th className="pb-2">Currency</th>
+              <th className="pb-2">Balance</th>
               <th className="pb-2">Modified</th>
               <th className="pb-2"></th>
             </tr>
@@ -113,6 +114,13 @@ export default function ContractsList({ contracts, fetchContracts = () => {} }) 
                         <Image src={`/flags/${contract.currency}.png`} alt={`${contract.currency}.png`} width={20} height={20} />
                         <p>{contract.currency}</p>
                       </div>
+                    </Link>
+                  </td>
+                  <td className="text-gray-600">
+                    <Link tabIndex={-1} className="block py-1.5 no-outline" href={`/app/debt-manager/${contract.id}`} passHref>
+                      <p className={`font-semibold ${contract.netBalance > 0 ? "text-green-600" : contract.netBalance < 0 ? "text-red-500" : "text-gray-600"}`}>
+                        {contract.netBalance} {contract.currency}
+                      </p>
                     </Link>
                   </td>
                   <td>
