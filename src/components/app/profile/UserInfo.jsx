@@ -8,6 +8,8 @@ import { EyeIcon, EyeSlashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { RingLoader } from "@/components/Loaders";
 import { useAuthContext } from "@/contexts/AuthProvider";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import toast from "react-hot-toast";
+import CustomToast from "@/components/CustomToast";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required").min(6, "Username must be at least 6 characters"),
@@ -39,6 +41,8 @@ function UserInfo() {
 
     try {
       const res = await axios.post(`/api/users/edit`, data);
+
+      toast.custom((t) => <CustomToast t={t} message={"Profile updated successfully"} />);
     } catch (err) {
       console.log(err);
       const msg = err?.response?.data?.message;

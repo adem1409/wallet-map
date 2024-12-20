@@ -40,7 +40,7 @@ export default function RegisterForm() {
       const res = await axios.post("/api/users", data);
 
       fetchUser();
-      router.push("/");
+      router.push("/app/debt-manager");
     } catch (err) {
       const msg = err?.response?.data?.message;
       console.log(err);

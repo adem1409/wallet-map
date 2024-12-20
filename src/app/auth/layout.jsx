@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push("/app/debt-manager");
     }
   }, [user]);
 

@@ -22,9 +22,9 @@ export default function Sidebar() {
               <SidebarItem item={item} />
             </li>
           ))}
-          <li>
+          {/* <li>
             <div className="h-px my-2 bg-slate-300"></div>
-          </li>
+          </li> */}
           {items2.map((item, index) => (
             <li key={index}>
               <SidebarItem item={item} />
@@ -97,12 +97,12 @@ const Doctor02Icon = (props) => (
 );
 
 const items1 = [
-  {
-    name: "Dashboard",
-    Icon: <HomeIcon className="size-5" />,
-    path: "/app",
-    strict: true,
-  },
+  // {
+  //   name: "Dashboard",
+  //   Icon: <HomeIcon className="size-5" />,
+  //   path: "/app",
+  //   strict: true,
+  // },
   {
     name: "Debt Manager",
     Icon: <DocumentCheckIcon className="size-5" />,
@@ -132,15 +132,15 @@ const items2 = [
   //   Icon: <UserIcon className="size-5" />,
   //   path: "/dashboard/profile",
   // },
-  {
-    name: "Settings",
-    Icon: <Cog6ToothIcon className="size-5" />,
-    path: "/admin/settings",
-  },
-  {
-    name: "Home",
-    Icon: <HomeIcon className="size-5" />,
-    path: "/",
-    strict: true,
-  },
+  // {
+  //   name: "Settings",
+  //   Icon: <Cog6ToothIcon className="size-5" />,
+  //   path: "/admin/settings",
+  // },
+  // {
+  //   name: "Home",
+  //   Icon: <HomeIcon className="size-5" />,
+  //   path: "/",
+  //   strict: true,
+  // },
 ];
